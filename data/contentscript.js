@@ -1,4 +1,12 @@
-let address = document.querySelector('#guser b');
+let address;
+if (/^https?:\/\/mail\.google\.com/.test(location)) {
+  let iframeDoc = document.getElementById('canvas_frame').contentDocument;
+  address = document.getElementById('canvas_frame').contentDocument.querySelector('#guser b');
+  document = iframeDoc;
+} else {
+  address = document.querySelector('#guser b');
+}
+
 if (address && /@gmail\.com/.test(address.textContent)) {
   address.parentNode.insertBefore(createIcon(), address.nextSibling);
 }
