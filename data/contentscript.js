@@ -15,10 +15,9 @@ if (/^https?:\/\/mail\.google\.com/.test(location)) {
   document.body.addEventListener("DOMNodeInserted", disp, false);
 } else {
   address = document.querySelector('#guser b');
-}
-
-if (address && /@gmail\.com/.test(address.textContent)) {
-  address.parentNode.insertBefore(createIcon(), address.nextSibling);
+  if (address && /@gmail\.com/.test(address.textContent)) {
+    address.parentNode.insertBefore(createIcon(), address.nextSibling);
+  }
 }
 
 function createIcon() {
