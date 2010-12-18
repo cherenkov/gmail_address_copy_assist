@@ -1,8 +1,18 @@
 let address;
 if (/^https?:\/\/mail\.google\.com/.test(location)) {
-  let iframeDoc = document.getElementById('canvas_frame').contentDocument;
-  address = document.getElementById('canvas_frame').contentDocument.querySelector('#guser b');
-  document = iframeDoc;
+  function disp() {
+    let iframe = document.getElementById("canvas_frame");
+    if (iframe && iframe.contentDocument.querySelector('#guser b')) {
+      let iframeDoc = iframe.contentDocument;
+      address = iframeDoc.querySelector('#guser b');
+      if (address && /@gmail\.com/.test(address.textContent)) {
+        document.body.removeEventListener("DOMNodeInserted", disp, false);
+        document = iframeDoc;
+        address.parentNode.insertBefore(createIcon(), address.nextSibling);
+      }
+    }
+  }
+  document.body.addEventListener("DOMNodeInserted", disp, false);
 } else {
   address = document.querySelector('#guser b');
 }
